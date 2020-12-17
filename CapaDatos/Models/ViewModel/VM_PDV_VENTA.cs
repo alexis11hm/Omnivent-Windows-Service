@@ -15,6 +15,6 @@ namespace CapaDatos.Models.ViewModel
         public string Sucursal { get; set; }
         public string Vendedor { get; set; }
         public string ListaPrecios { get; set; }
-
+        public int VtaAccion { get; set; }
     }
 }

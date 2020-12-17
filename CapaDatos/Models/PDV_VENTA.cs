@@ -31,6 +31,8 @@ namespace CapaDatos.Models
         public int? VndId { get; set; }
         [Column("lip_id")]
         public int? LipId { get; set; }
-        
+        [Column("vta_accion")]
+        public int? VtaAccion { get; set; }
+
     }
 }
