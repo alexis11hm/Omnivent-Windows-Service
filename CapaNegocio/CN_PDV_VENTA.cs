@@ -59,80 +59,7 @@ namespace CapaNegocio
                                                             Sucursal = x.MixMixVenta.MixVenta.Sucursal.SucNombre,
                                                             ListaPrecios = x.Lista.LipNombre,
                                                             Vendedor = x.MixMixVenta.Vendedor.VndNombre
-                                                        }).Where(
-                                                            venta => venta.VtaAccion == 1 && venta.Sucursal != null && venta.Vendedor != null && venta.ListaPrecios != null)
-                                                        .ToListAsync();
-
-                    var ventasSucursal = await context.PdvVenta.Join(
-                                                        context.GlbSucursal,
-                                                        venta => venta.SucId,
-                                                        sucursal => sucursal.SucId,
-                                                        (venta, sucursal) => new
-                                                        {
-                                                            Venta = venta,
-                                                            Sucursal = sucursal
-                                                        }
-                                                        ).Select(x => new VM_PDV_VENTA()
-                                                        {
-                                                            VtaId = x.Venta.VtaId,
-                                                            VtaFolioVenta = x.Venta.VtaFolioVenta,
-                                                            VtaFecha = x.Venta.VtaFecha,
-                                                            VtaTotal = x.Venta.VtaTotal,
-                                                            VtaEstatus = x.Venta.VtaEstatus,
-                                                            Sucursal = x.Sucursal.SucNombre,
-                                                            ListaPrecios = null,
-                                                            Vendedor = null
-                                                        }).Where(
-                                                            venta => venta.VtaAccion == 1 && venta.Sucursal != null && venta.Vendedor == null && venta.ListaPrecios == null)
-                                                        .ToListAsync();
-
-                    var ventasVendedor = await context.PdvVenta.Join(
-                                                        context.PdvVendedor,
-                                                        venta => venta.VndId,
-                                                        vendedor => vendedor.VndId,
-                                                        (venta, vendedor) => new
-                                                        {
-                                                            Venta = venta,
-                                                            Vendedor = vendedor
-                                                        }
-                                                        ).Select(x => new VM_PDV_VENTA()
-                                                        {
-                                                            VtaId = x.Venta.VtaId,
-                                                            VtaFolioVenta = x.Venta.VtaFolioVenta,
-                                                            VtaFecha = x.Venta.VtaFecha,
-                                                            VtaTotal = x.Venta.VtaTotal,
-                                                            VtaEstatus = x.Venta.VtaEstatus,
-                                                            Sucursal = null,
-                                                            ListaPrecios = null,
-                                                            Vendedor = x.Vendedor.VndNombre
-                                                        }).Where(
-                                                            venta => venta.VtaAccion == 1 && venta.Sucursal == null && venta.Vendedor != null && venta.ListaPrecios == null)
-                                                        .ToListAsync();
-
-                    var ventasListaPrecio = await context.PdvVenta.Join(
-                                                        context.PdvListaPrecio,
-                                                        venta => venta.LipId,
-                                                        lista => lista.LipId,
-                                                        (venta, lista) => new
-                                                        {
-                                                            Venta = venta,
-                                                            Lista = lista
-                                                        }).Select(x => new VM_PDV_VENTA()
-                                                        {
-                                                            VtaId = x.Venta.VtaId,
-                                                            VtaFolioVenta = x.Venta.VtaFolioVenta,
-                                                            VtaFecha = x.Venta.VtaFecha,
-                                                            VtaTotal = x.Venta.VtaTotal,
-                                                            VtaEstatus = x.Venta.VtaEstatus,
-                                                            Sucursal = null,
-                                                            ListaPrecios = x.Lista.LipNombre,
-                                                            Vendedor = null
-                                                        }).Where(
-                                                            venta => venta.VtaAccion == 1 && venta.Sucursal == null && venta.Vendedor == null && venta.ListaPrecios != null)
-                                                        .ToListAsync();
-
-                    var ventasNull = await context.PdvVenta.Where(venta => venta.SucId == null || venta.VndId == null || venta.LipId == null).ToListAsync();
-
+                                                        }).ToListAsync();
                     //Si hay ventas retornamos las ventas, caso contrario valor nulo
                     return ventas;
                 }
@@ -165,6 +92,8 @@ namespace CapaNegocio
                     //Agregamos encabezados, para enviar json y el token de autorizacion
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer "+token);
+
+                    Console.WriteLine();
 
                     //Realizamos la peticion, enviamos una lista de objetos de ventas en formato JSON
                     var response = await client.PostAsJsonAsync<List<VM_PDV_VENTA>>("Ventas/Crear", ventas);
