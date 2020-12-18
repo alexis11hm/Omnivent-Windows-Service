@@ -82,9 +82,9 @@ namespace CapaNegocio
                                                             VtaFecha = x.Venta.VtaFecha,
                                                             VtaTotal = x.Venta.VtaTotal,
                                                             VtaEstatus = x.Venta.VtaEstatus,
-                                                            Sucursal = x.Sucursal.SucNombre,
-                                                            ListaPrecios = null,
-                                                            Vendedor = null,
+                                                            Sucursal = x.Sucursal.SucNombre,    
+                                                            ListaPrecios = x.Venta.LipId.ToString(),
+                                                            Vendedor = x.Venta.VndId.ToString(),
                                                             VtaAccion = x.Venta.VtaAccion
                                                         }).Where(
                                                             venta => venta.VtaAccion == 1 && venta.Vendedor == null && venta.ListaPrecios == null)
@@ -117,7 +117,7 @@ namespace CapaNegocio
                                                             VtaTotal = x.Venta.Venta.VtaTotal,
                                                             VtaEstatus = x.Venta.Venta.VtaEstatus,
                                                             Sucursal = x.Venta.Sucursal.SucNombre,
-                                                            ListaPrecios = null,
+                                                            ListaPrecios = x.Venta.Venta.LipId.ToString(),
                                                             Vendedor = x.Vendedor.VndNombre,
                                                             VtaAccion = x.Venta.Venta.VtaAccion
                                                         }).Where(
@@ -151,14 +151,13 @@ namespace CapaNegocio
                                                             VtaEstatus = x.Venta.Venta.VtaEstatus,
                                                             Sucursal = x.Venta.Sucursal.SucNombre,
                                                             ListaPrecios = x.Lista.LipNombre,
-                                                            Vendedor = null,
+                                                            Vendedor = x.Venta.Venta.VndId.ToString(),
                                                             VtaAccion = x.Venta.Venta.VtaAccion
                                                         }).Where(
                                                             venta => venta.VtaAccion == 1 && venta.Vendedor == null && venta.ListaPrecios != null)
                                                         .ToListAsync();
                     //Si hay ventas retornamos las ventas, caso contrario valor nulo
-
-                    if(ventasSucursal.Count > 0) ventas.AddRange(ventasSucursal);
+                    if (ventasSucursal.Count > 0) ventas.AddRange(ventasSucursal);
                     if (ventasListaVendedor.Count > 0) ventas.AddRange(ventasListaVendedor);
                     if (ventasListaPrecios.Count > 0) ventas.AddRange(ventasListaPrecios);
 
@@ -175,9 +174,41 @@ namespace CapaNegocio
             }
         }
 
+        public async Task DesincronizarDatosAsync(List<VM_PDV_VENTA> ventas)
+        {
+            using (var context = new OmniventContext())
+            {
+                var transaccion = context.Database.BeginTransaction();
+                try
+                { 
+                    ventas.ForEach( venta => {
+                        var dato = context.PdvVenta.Where(v => v.VtaId == venta.VtaId).FirstOrDefault();
+                        if(dato != null)
+                        {
+                            dato.VtaAccion = 0;
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Dato no encontrado");
+                        }
+                    });
+                    transaccion.Commit();
+                    Console.WriteLine("El campo de los datos de PDV_VENTA se han actualizado correctamente");
+                }
+                catch(Exception ex)
+                {
+                    await transaccion.RollbackAsync();
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
         //Funcion que realiza la insercion en la APi de las ventas
         public async Task InsertarVentasAPI(List<VM_PDV_VENTA> ventas, string token)
         {
+            //Regresamos el valor de accion a 0
+            await DesincronizarDatosAsync(ventas);
             try
             {
                 //Creamos un clientHandler para la validacion de certificado
@@ -213,6 +244,7 @@ namespace CapaNegocio
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.Message);
             }
         }
     }

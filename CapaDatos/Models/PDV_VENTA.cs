@@ -32,7 +32,7 @@ namespace CapaDatos.Models
         [Column("lip_id")]
         public int? LipId { get; set; }
         [Column("vta_accion")]
-        public int VtaAccion { get; set; }
+        public Int16 VtaAccion { get; set; }
 
     }
 }

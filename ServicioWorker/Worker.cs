@@ -49,15 +49,19 @@ namespace ServicioWorker
 
                 //NOTA: La segunda vez que se realiza la peticion genera un error, ya que los datos
                 //ya han sido registrados, falta manejar este problema
-                if(ventas != null)
+                if(ventas != null && ventas.Count > 0)
                 {
                     await venta.InsertarVentasAPI(ventas,token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay datos nuevos, No es necesario realizar la peticion");
                 }
 
                 //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 //Realizamos una retraso de 1 minuto, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
-                await Task.Delay(60 * 1000, stoppingToken);
+                await Task.Delay(30 * 1000, stoppingToken);
             }
         }
 
