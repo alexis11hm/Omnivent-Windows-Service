@@ -22,3 +22,7 @@ C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\
 C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.csproj.CopyComplete
 C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.dll
 C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.pdb
+C:\Users\erikg\Desktop\OmniSoft\Omnivent-Windows-Service\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.csprojAssemblyReference.cache
+C:\Users\erikg\Desktop\OmniSoft\Omnivent-Windows-Service\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.AssemblyInfoInputs.cache
+C:\Users\erikg\Desktop\OmniSoft\Omnivent-Windows-Service\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.AssemblyInfo.cs
+C:\Users\erikg\Desktop\OmniSoft\Omnivent-Windows-Service\CapaNegocio\obj\Debug\netcoreapp3.1\CapaNegocio.csproj.CoreCompileInputs.cache

@@ -8083,23 +8083,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alex_\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\erikg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj",
+      "projectUniqueName": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj",
       "projectName": "CapaNegocio",
-      "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj",
-      "packagesPath": "C:\\Users\\alex_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\obj\\",
+      "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj",
+      "packagesPath": "C:\\Users\\erikg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\alex_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\erikg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8111,10 +8107,9 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj": {
-              "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj"
+            "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj": {
+              "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj"
             }
           }
         }
@@ -8127,7 +8122,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",
@@ -8153,7 +8147,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
       }
     }
   }
