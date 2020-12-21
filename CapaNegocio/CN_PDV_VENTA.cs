@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CapaDatos;
 using CapaDatos.Models;
 using CapaDatos.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
@@ -207,8 +206,6 @@ namespace CapaNegocio
         //Funcion que realiza la insercion en la APi de las ventas
         public async Task InsertarVentasAPI(List<VM_PDV_VENTA> ventas, string token)
         {
-            //Regresamos el valor de accion a 0
-            await DesincronizarDatosAsync(ventas);
             try
             {
                 //Creamos un clientHandler para la validacion de certificado
@@ -232,6 +229,8 @@ namespace CapaNegocio
                     if (response.IsSuccessStatusCode)
                     {
                         Console.WriteLine(response.StatusCode);
+                        //Regresamos el valor de accion a 0
+                        await DesincronizarDatosAsync(ventas);
                     }
                     else
                     {

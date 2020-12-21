@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using CapaNegocio;
+using CapaNegocio.Helper;
 using CapaDatos.Models;
 using System.Configuration;
 using CapaDatos.Models.ViewModel;
@@ -19,8 +20,9 @@ namespace ServicioWorker
         private readonly ILogger<Worker> _logger;
 
         //Definicion de variables de manera global en la clase
+        private HashHelper hash;
         private CN_PDV_VENTA venta;
-        private List<PDV_VENTA> ventas;
+        private List<VM_PDV_VENTA> ventas;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -31,19 +33,19 @@ namespace ServicioWorker
         {
             //Obteniendo el usuario de la API y la contraseña definidos en el archivo de configuracion 
             //Archivo de configuracion: App.config
-            string usuario = ConfigurationManager.AppSettings["UsuarioAPI"].ToString();
-            string password = ConfigurationManager.AppSettings["PasswordAPI"].ToString();
+            string usuario = hash.Descifrar(ConfigurationManager.AppSettings["UsuarioAPI"].ToString());
+            string password = hash.Descifrar(ConfigurationManager.AppSettings["PasswordAPI"].ToString());
 
             //Inciamos sesion en la API y obtenemos el token
-            string token = await CapaNegocio.Helper.Helper.IniciarSesion(usuario, password);
+            string token = await Helper.IniciarSesion(usuario, password);
 
             //Se realiza un ciclo infinito, este se cancela hasta que se pasa el token de cancelacion
             //se cancela presionando: ctrl + c
             while (!stoppingToken.IsCancellationRequested)
             {
-                
+
                 //Obtenemos las ventas de la bd de omnivent
-                var ventas = await venta.ObtenerVentasAsync();
+                ventas = await venta.ObtenerVentasAsync();
 
                 //Llamamos la API e Isertamos las ventas en la BD de la api
 
@@ -59,6 +61,7 @@ namespace ServicioWorker
                 }
 
                 //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                
 
                 //Realizamos una retraso de 1 minuto, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
                 await Task.Delay(30 * 1000, stoppingToken);
@@ -71,6 +74,8 @@ namespace ServicioWorker
             //Instanciamos el objeto para acceder a los metodos de obtencion de ventas de la bd de omnivent
             //e insercion a la API
             venta = new CN_PDV_VENTA();
+
+            hash = new HashHelper();
 
             //Deshabilitadmos la validacion del certificado SSL
             System.Net.ServicePointManager.ServerCertificateValidationCallback +=

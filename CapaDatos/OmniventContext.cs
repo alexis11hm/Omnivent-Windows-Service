@@ -19,12 +19,12 @@ namespace CapaDatos.Models
         {
         }
 
-        
+
         public virtual DbSet<PDV_VENTA> PdvVenta { get; set; }
         public virtual DbSet<GLB_SUCURSAL> GlbSucursal { get; set; }
         public virtual DbSet<PDV_VENDEDOR> PdvVendedor { get; set; }
         public virtual DbSet<PDV_LISTA_PRECIO> PdvListaPrecio { get; set; }
-
+        public virtual DbSet<LCL_PARAMETRO> LclParametro { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
