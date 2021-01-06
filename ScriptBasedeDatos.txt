@@ -1,0 +1,11 @@
+ALTER TABLE PDV_VENTA ADD vta_control bit default(1);
+ALTER TABLE PDV_VENTA ADD vta_accion smallint default(0);
+
+ALTER TABLE GLB_PRODUCTO ADD pro_control bit default(1);
+ALTER TABLE GLB_PRODUCTO ADD pro_accion smallint default(0);
+
+ALTER TABLE PDV_LISTA_PRECIO ADD lip_control bit default(1);
+ALTER TABLE PDV_LISTA_PRECIO ADD lip_accion smallint default(0);
+
+ALTER TABLE PDV_LISTAP_DETALLE ADD lpd_control bit default(1);
+ALTER TABLE PDV_LISTAP_DETALLE ADD lpd_accion smallint default(0);
