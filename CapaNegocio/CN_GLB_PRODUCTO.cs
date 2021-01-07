@@ -86,23 +86,25 @@ namespace CapaNegocio
         {
             using (var context = new OmniventContext())
             {
-                var transaccion = context.Database.BeginTransaction();
+                var transaccion = await context.Database.BeginTransactionAsync();
                 try
                 {
-                    productos.ForEach(producto => {
-                        var dato = context.GlbProducto.Where(p => p.ProId == producto.ProId).FirstOrDefault();
+                    foreach(var producto in productos)
+                    {
+                        var dato = await context.GlbProducto.Where(p => p.ProId == producto.ProId).FirstOrDefaultAsync();
                         if (dato != null)
                         {
                             dato.ProAccion = 0;
-                            context.SaveChanges();
+                            await context.SaveChangesAsync();
                         }
                         else
                         {
                             Console.WriteLine("Dato no encontrado");
                         }
-                    });
-                    transaccion.Commit();
-                    Console.WriteLine("El campo de los datos de GLB_PRODUCTO se han actualizado correctamente");
+                    }
+
+                    await transaccion.CommitAsync();
+                    Console.WriteLine("El campo Accion de la tabla GLB_PRODUCTO se ha actualizado correctamente");
                 }
                 catch (Exception ex)
                 {

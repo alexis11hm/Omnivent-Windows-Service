@@ -58,17 +58,19 @@ namespace ServicioWorker
             while (!stoppingToken.IsCancellationRequested)
             {
 
+                Console.WriteLine("\nIniciando la Carga de Datos a la API...\n");
+
                 //Obtenemos los datos de la bd de omnivent
 
-                //ventas = await venta.ObtenerVentas();
+                ventas = await venta.ObtenerVentas();
 
-                //productosInsertar = await producto.ObtenerProductosAInsertar();
-                //productosActualizar = await producto.ObtenerProductosAActualizar();
-                //productosEliminar = await producto.ObtenerProductosAEliminar();
+                productosInsertar = await producto.ObtenerProductosAInsertar();
+                productosActualizar = await producto.ObtenerProductosAActualizar();
+                productosEliminar = await producto.ObtenerProductosAEliminar();
 
-                //listaPreciosInsertar = await listaPrecio.ObtenerListaPrecioAInsertar();
-                //listaPreciosActualizar = await listaPrecio.ObtenerListaPrecioAActualizar();
-                //listaPreciosEliminar = await listaPrecio.ObtenerListaPrecioAEliminar();
+                listaPreciosInsertar = await listaPrecio.ObtenerListaPrecioAInsertar();
+                listaPreciosActualizar = await listaPrecio.ObtenerListaPrecioAActualizar();
+                listaPreciosEliminar = await listaPrecio.ObtenerListaPrecioAEliminar();
 
                 listaPrecioDetallesInsertar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAInsertar();
                 listaPrecioDetallesActualizar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAActualizar();
@@ -76,44 +78,20 @@ namespace ServicioWorker
 
                 //Llamamos la API e Isertamos las ventas en la BD de la api
 
-                //NOTA: La segunda vez que se realiza la peticion genera un error, ya que los datos
-                //ya han sido registrados, falta manejar este problema
+                //VENTAS
 
-                if (listaPrecioDetallesInsertar != null && listaPrecioDetallesInsertar.Count > 0)
-                {
-                    await listaPrecioDetalles.InsertarListaPreciosDetalleAPI(listaPrecioDetallesInsertar,token);
-                }
-                else
-                {
-                    Console.WriteLine("No hay datos nuevos, No es necesario realizar la peticion");
-                }
-                if (listaPrecioDetallesActualizar != null && listaPrecioDetallesActualizar.Count > 0)
-                {
-                    await listaPrecioDetalles.ActualizarListaPreciosDetalleAPI(listaPrecioDetallesActualizar, token);
-                }
-                else
-                {
-                    Console.WriteLine("No hay datos para actualizar, No es necesario realizar la peticion");
-                }
-                if (listaPrecioDetallesEliminar != null && listaPrecioDetallesEliminar.Count > 0)
-                {
-                    await listaPrecioDetalles.EliminarListaPreciosDetalleAPI(listaPrecioDetallesEliminar, token);
-                }
-                else
-                {
-                    Console.WriteLine("No hay datos para eliminar, No es necesario realizar la peticion");
-                }
-
-                /*if(ventas != null && ventas.Count > 0)
+                if (ventas != null && ventas.Count > 0)
                 {
                     await venta.InsertarVentasAPI(ventas,token);
                 }
                 else
                 {
-                    Console.WriteLine("No hay datos nuevos, No es necesario realizar la peticion");
-                }*/
+                    Console.WriteLine("No hay ventas nuevos, No es necesario realizar la peticion");
+                }
 
-                /*if (productosInsertar != null && productosInsertar.Count > 0)
+                //PRODUCTOS
+
+                if (productosInsertar != null && productosInsertar.Count > 0)
                 {
                     await producto.InsertarProductosAPI(productosInsertar,token);
                 }
@@ -138,9 +116,11 @@ namespace ServicioWorker
                 else
                 {
                     Console.WriteLine("No hay productos para Eliminar, No es necesario realizar la peticion");
-                }*/
+                }
 
-                /*if (listaPreciosInsertar != null && listaPreciosInsertar.Count > 0)
+                //LISTA PRECIOS
+                
+                if (listaPreciosInsertar != null && listaPreciosInsertar.Count > 0)
                 {
                     await listaPrecio.InsertarListaPreciosAPI(listaPreciosInsertar,token);
                 }
@@ -165,13 +145,40 @@ namespace ServicioWorker
                 else
                 {
                     Console.WriteLine("No hay lista de precios a eliminar, No es necesario realizar la peticion");
-                }*/
+                }
+
+                //lISTA PRECIOS DETALLE
+                
+                if (listaPrecioDetallesInsertar != null && listaPrecioDetallesInsertar.Count > 0)
+                {
+                    await listaPrecioDetalles.InsertarListaPreciosDetalleAPI(listaPrecioDetallesInsertar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay lista de precios detalle nuevos, No es necesario realizar la peticion");
+                }
+                if (listaPrecioDetallesActualizar != null && listaPrecioDetallesActualizar.Count > 0)
+                {
+                    await listaPrecioDetalles.ActualizarListaPreciosDetalleAPI(listaPrecioDetallesActualizar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay lista de precios detalle para actualizar, No es necesario realizar la peticion");
+                }
+                if (listaPrecioDetallesEliminar != null && listaPrecioDetallesEliminar.Count > 0)
+                {
+                    await listaPrecioDetalles.EliminarListaPreciosDetalleAPI(listaPrecioDetallesEliminar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay lista de precios detalle para eliminar, No es necesario realizar la peticion");
+                }
 
                 //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
 
                 //Realizamos una retraso de 1 minuto, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
-                await Task.Delay(30 * 1000, stoppingToken);
+                await Task.Delay(5 * 60 * 1000, stoppingToken);
             }
         }
 

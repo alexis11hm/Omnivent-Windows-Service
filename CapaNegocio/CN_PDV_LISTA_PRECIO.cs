@@ -61,23 +61,25 @@ namespace CapaNegocio
         {
             using (var context = new OmniventContext())
             {
-                var transaccion = context.Database.BeginTransaction();
+                var transaccion = await context.Database.BeginTransactionAsync();
                 try
                 {
-                    listaPrecios.ForEach(precios => {
-                        var dato = context.PdvListaPrecio.Where(precio => precio.LipId == precios.LipId).FirstOrDefault();
+                    foreach(var precios in listaPrecios)
+                    {
+                        var dato = await context.PdvListaPrecio.Where(precio => precio.LipId == precios.LipId).FirstOrDefaultAsync();
                         if (dato != null)
                         {
                             dato.LipAccion = 0;
-                            context.SaveChanges();
+                            await context.SaveChangesAsync();
                         }
                         else
                         {
                             Console.WriteLine("Dato no encontrado");
                         }
-                    });
-                    transaccion.Commit();
-                    Console.WriteLine("El campo de los datos de PDV_LISTA_PRECIO se han actualizado correctamente");
+                    }
+
+                    await transaccion.CommitAsync();
+                    Console.WriteLine("El campo Accion de la tabla PDV_LISTA_PRECIO se ha actualizado correctamente");
                 }
                 catch (Exception ex)
                 {

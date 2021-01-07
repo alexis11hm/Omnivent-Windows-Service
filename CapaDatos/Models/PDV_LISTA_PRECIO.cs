@@ -14,5 +14,7 @@ namespace CapaDatos.Models
         public int LipId { get; set; }
         [Column("lip_nombre")]
         public string LipNombre { get; set; }
+        [Column("lip_accion")]
+        public Int16 LipAccion { get; set; }
     }
 }

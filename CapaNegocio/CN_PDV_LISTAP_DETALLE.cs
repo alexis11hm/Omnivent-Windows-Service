@@ -63,7 +63,7 @@ namespace CapaNegocio
         {
             using (var context = new OmniventContext())
             {
-                var transaccion = context.Database.BeginTransaction();
+                var transaccion = await context.Database.BeginTransactionAsync();
                 try
                 {
 
@@ -74,12 +74,10 @@ namespace CapaNegocio
                                 "select * from PDV_LISTAP_DETALLE where pro_id = "+preciosDetalle.ProId+" and lip_id = "+preciosDetalle.LipId
                                 ).FirstOrDefaultAsync();
 
-                        //Console.WriteLine(precioDetalle.ProId + " - " + precioDetalle.LipId + " - " + precioDetalle.LipDetConIva);
-                        //Console.WriteLine(dato.ProId + " - " + dato.LipId + " - " + dato.LpdPrecioConIva);
                         if (dato != null)
                         {
                             dato.LpdAccion = 0;
-                            context.SaveChanges();
+                            await context.SaveChangesAsync();
                         }
                         else
                         {
@@ -89,8 +87,8 @@ namespace CapaNegocio
 
 
 
-                    transaccion.Commit();
-                    Console.WriteLine("El campo de los datos de PDV_LISTAP_DETALLE se han actualizado correctamente");
+                    await transaccion.CommitAsync();
+                    Console.WriteLine("El campo Accion de la tabla PDV_LISTAP_DETALLE se ha actualizado correctamente");
                 }
                 catch (Exception ex)
                 {

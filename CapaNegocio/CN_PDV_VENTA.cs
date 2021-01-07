@@ -14,7 +14,7 @@ namespace CapaNegocio
     {
 
         //Funcion que retorna las ventas de la base de datos de Omnivent
-        public async Task<List<VM_PDV_VENTA>> ObtenerVentasAsync()
+        public async Task<List<VM_PDV_VENTA>> ObtenerVentas()
         {
             using (var context = new OmniventContext())
             {
@@ -173,27 +173,28 @@ namespace CapaNegocio
             }
         }
 
-        public async Task DesincronizarDatosAsync(List<VM_PDV_VENTA> ventas)
+        public async Task DesincronizarDatos(List<VM_PDV_VENTA> ventas)
         {
             using (var context = new OmniventContext())
             {
-                var transaccion = context.Database.BeginTransaction();
+                var transaccion = await context.Database.BeginTransactionAsync();
                 try
                 { 
-                    ventas.ForEach( venta => {
-                        var dato = context.PdvVenta.Where(v => v.VtaId == venta.VtaId).FirstOrDefault();
-                        if(dato != null)
+                    foreach(var venta in ventas)
+                    {
+                        var dato = await context.PdvVenta.Where(v => v.VtaId == venta.VtaId).FirstOrDefaultAsync();
+                        if (dato != null)
                         {
                             dato.VtaAccion = 0;
-                            context.SaveChanges();
+                            await context.SaveChangesAsync();
                         }
                         else
                         {
                             Console.WriteLine("Dato no encontrado");
                         }
-                    });
-                    transaccion.Commit();
-                    Console.WriteLine("El campo de los datos de PDV_VENTA se han actualizado correctamente");
+                    }
+                    await transaccion.CommitAsync();
+                    Console.WriteLine("El campo Accion de la tabla PDV_VENTA se ha actualizado correctamente");
                 }
                 catch(Exception ex)
                 {
@@ -230,7 +231,7 @@ namespace CapaNegocio
                     {
                         Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
-                        await DesincronizarDatosAsync(ventas);
+                        await DesincronizarDatos(ventas);
                     }
                     else
                     {
