@@ -9,3 +9,12 @@ ALTER TABLE PDV_LISTA_PRECIO ADD lip_accion smallint default(0);
 
 ALTER TABLE PDV_LISTAP_DETALLE ADD lpd_control bit default(1);
 ALTER TABLE PDV_LISTAP_DETALLE ADD lpd_accion smallint default(0);
+
+ALTER TABLE PDV_VENTA_DETALLE ADD ved_control bit default(1);
+ALTER TABLE PDV_VENTA_DETALLE ADD ved_accion smallint default(0);
+
+ALTER TABLE PDV_FORMA_PAGO ADD fop_control bit default(1);
+ALTER TABLE PDV_FORMA_PAGO ADD fop_accion smallint default(0);
+
+ALTER TABLE PDV_FLUJO_EFECTIVO ADD fle_control bit default(1);
+ALTER TABLE PDV_FLUJO_EFECTIVO ADD fle_accion smallint default(0);
