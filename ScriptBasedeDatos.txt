@@ -18,3 +18,12 @@ ALTER TABLE PDV_FORMA_PAGO ADD fop_accion smallint default(0);
 
 ALTER TABLE PDV_FLUJO_EFECTIVO ADD fle_control bit default(1);
 ALTER TABLE PDV_FLUJO_EFECTIVO ADD fle_accion smallint default(0);
+
+ALTER TABLE GLB_SUCURSAL ADD suc_control bit default(1);
+ALTER TABLE GLB_SUCURSAL ADD suc_accion smallint default(0);
+
+ALTER TABLE PDV_ALMACEN ADD alm_control bit default(1);
+ALTER TABLE PDV_ALMACEN ADD alm_accion smallint default(0);
+
+ALTER TABLE PDV_ALMACEN_PRODUCTO ADD alp_control bit default(1);
+ALTER TABLE PDV_ALMACEN_PRODUCTO ADD alp_accion smallint default(0);

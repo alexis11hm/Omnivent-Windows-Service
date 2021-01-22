@@ -29,6 +29,9 @@ namespace ServicioWorker
         private CN_PDV_VENTA_DETALLE ventaDetalle;
         private CN_PDV_FORMA_PAGO formaPago;
         private CN_PDV_FLUJO_EFECTIVO flujoEfectivo;
+        private CN_GLB_SUCURSAL sucursal;
+        private CN_PDV_ALMACEN almacen;
+        private CN_PDV_ALMACEN_PRODUCTO almacenProducto;
 
         private List<VM_PDV_VENTA> ventas;
 
@@ -55,6 +58,18 @@ namespace ServicioWorker
         private List<VM_PDV_FLUJO_EFECTIVO> flujosEfectivoInsertar;
         private List<VM_PDV_FLUJO_EFECTIVO> flujosEfectivoActualizar;
         private List<VM_PDV_FLUJO_EFECTIVO> flujosEfectivoEliminar;
+
+        private List<VM_GLB_SUCURSAL> sucursalesInsertar;
+        private List<VM_GLB_SUCURSAL> sucursalesActualizar;
+        private List<VM_GLB_SUCURSAL> sucursalesEliminar;
+
+        private List<VM_PDV_ALMACEN> almacenesInsertar;
+        private List<VM_PDV_ALMACEN> almacenesActualizar;
+        private List<VM_PDV_ALMACEN> almacenesEliminar;
+
+        private List<VM_PDV_ALMACEN_PRODUCTO> almacenProductosInsertar;
+        private List<VM_PDV_ALMACEN_PRODUCTO> almacenProductosActualizar;
+        private List<VM_PDV_ALMACEN_PRODUCTO> almacenProductosEliminar;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -106,8 +121,21 @@ namespace ServicioWorker
                 flujosEfectivoActualizar = await flujoEfectivo.ObtenerFlujosEfectivoAActualizar();
                 flujosEfectivoEliminar = await flujoEfectivo.ObtenerFlujosEfectivoAEliminar();
 
+                sucursalesInsertar = await sucursal.ObtenerSucursalesAInsertar();
+                sucursalesActualizar = await sucursal.ObtenerSucursalesAActualizar();
+                sucursalesEliminar = await sucursal.ObtenerSucursalesAEliminar();
+
+                almacenesInsertar = await almacen.ObtenerAlmacenesAInsertar();
+                almacenesActualizar = await almacen.ObtenerAlmacenesAActualizar();
+                almacenesEliminar = await almacen.ObtenerAlmacenesAEliminar();
+
+                almacenProductosInsertar = await almacenProducto.ObtenerAlmacenProductosAInsertar();
+                almacenProductosActualizar = await almacenProducto.ObtenerAlmacenProductosAActualizar();
+                almacenProductosEliminar = await almacenProducto.ObtenerAlmacenProductosAEliminar();
+
 
                 //Llamamos la API e Isertamos las ventas en la BD de la api
+                
 
                 //VENTAS
 
@@ -291,14 +319,100 @@ namespace ServicioWorker
                 {
                     Console.WriteLine("No hay flujos de efectivo por eliminar, No es necesario realizar la peticion");
                 }
-                 
-                 
+                
+                //SUCURSALES
+
+                if (sucursalesInsertar != null && sucursalesInsertar.Count > 0)
+                {
+                    await sucursal.InsertarSucursalesAPI(sucursalesInsertar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay sucursales nuevas, No es necesario realizar la peticion");
+                }
+
+                if (sucursalesActualizar != null && sucursalesActualizar.Count > 0)
+                {
+                    await sucursal.ActualizarSucursalesAPI(sucursalesActualizar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay sucursales por actualizar, No es necesario realizar la peticion");
+                }
+
+                if (sucursalesEliminar != null && sucursalesEliminar.Count > 0)
+                {
+                    await sucursal.EliminarSucursalesAPI(sucursalesEliminar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay sucursales por eliminar, No es necesario realizar la peticion");
+                }
+
+                //ALMACENES 
+
+                 if (almacenesInsertar != null && almacenesInsertar.Count > 0)
+                {
+                    await almacen.InsertarAlmacenesAPI(almacenesInsertar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
+                }
+                
+                if (almacenesActualizar != null && almacenesActualizar.Count > 0)
+                {
+                    await almacen.ActualizarAlmacenesAPI(almacenesActualizar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacenes por actualizar, No es necesario realizar la peticion");
+                }
+
+                if (almacenesEliminar != null && almacenesEliminar.Count > 0)
+                {
+                    await almacen.EliminarAlmacenesAPI(almacenesEliminar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
+                }
+
+                //PRODUCTOS ALMACEN
+                if (almacenProductosInsertar != null && almacenProductosInsertar.Count > 0)
+                {
+                    await almacenProducto.InsertarAlmacenProductosAPI(almacenProductosInsertar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacen producto nuevos, No es necesario realizar la peticion");
+                }
+
+                if (almacenProductosActualizar != null && almacenProductosActualizar.Count > 0)
+                {
+                    await almacenProducto.ActualizarAlmacenProductosAPI(almacenProductosActualizar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacen producto por actualizar, No es necesario realizar la peticion");
+                }
+
+                if (almacenProductosEliminar != null && almacenProductosEliminar.Count > 0)
+                {
+                    await almacenProducto.EliminarAlmacenProductosAPI(almacenProductosEliminar, token);
+                }
+                else
+                {
+                    Console.WriteLine("No hay almacen producto por eliminar, No es necesario realizar la peticion");
+                }
+
+
 
                 //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
 
                 //Realizamos una retraso de 1 minuto, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
-                await Task.Delay(5 * 60 * 1000, stoppingToken);
+                await Task.Delay(10 * 60 * 1000, stoppingToken);
             }
         }
 
@@ -314,6 +428,9 @@ namespace ServicioWorker
             ventaDetalle = new CN_PDV_VENTA_DETALLE();
             formaPago = new CN_PDV_FORMA_PAGO();
             flujoEfectivo = new CN_PDV_FLUJO_EFECTIVO();
+            sucursal = new CN_GLB_SUCURSAL();
+            almacen = new CN_PDV_ALMACEN();
+            almacenProducto = new CN_PDV_ALMACEN_PRODUCTO();
 
             hash = new HashHelper();
 
