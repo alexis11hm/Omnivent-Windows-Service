@@ -90,7 +90,7 @@ namespace CapaNegocio
         }
 
         
-        public async Task InsertarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
+        public async Task<string> InsertarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
         {
             try
             {
@@ -114,12 +114,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(sucursales);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -128,13 +130,14 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
         
-        public async Task ActualizarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
+        public async Task<string> ActualizarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
         {
             try
             {
@@ -158,12 +161,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(sucursales);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -172,13 +177,14 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
         
-        public async Task EliminarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
+        public async Task<string> EliminarSucursalesAPI(List<VM_GLB_SUCURSAL> sucursales, string token)
         {
             try
             {
@@ -214,12 +220,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(sucursales);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -228,6 +236,7 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }

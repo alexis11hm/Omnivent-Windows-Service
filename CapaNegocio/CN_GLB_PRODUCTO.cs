@@ -1,6 +1,7 @@
 ﻿using CapaDatos.Models;
 using CapaDatos.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -115,7 +116,7 @@ namespace CapaNegocio
         }
 
 
-        public async Task InsertarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
+        public async Task<string> InsertarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
         {
             try
             {
@@ -139,12 +140,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(productos);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: "+response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -153,12 +156,13 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: "+ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
-        public async Task ActualizarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
+        public async Task<string> ActualizarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
         {
             try
             {
@@ -182,12 +186,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(productos);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -196,12 +202,13 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
-        public async Task EliminarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
+        public async Task<string> EliminarProductosAPI(List<VM_GLB_PRODUCTO> productos, string token)
         {
             try
             {
@@ -237,12 +244,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(productos);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -251,6 +260,7 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }

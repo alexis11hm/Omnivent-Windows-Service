@@ -91,7 +91,7 @@ namespace CapaNegocio
 
         //Funciones para llamar API
 
-        public async Task InsertarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
+        public async Task<string> InsertarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
         {
             try
             {
@@ -115,12 +115,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(listaPrecios);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -129,13 +131,13 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Excepcion");
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
-        public async Task ActualizarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
+        public async Task<string> ActualizarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
         {
             try
             {
@@ -159,12 +161,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(listaPrecios);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -173,13 +177,13 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Excepcion");
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
         }
 
-        public async Task EliminarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
+        public async Task<string> EliminarListaPreciosAPI(List<VM_PDV_LISTA_PRECIO> listaPrecios, string token)
         {
             try
             {
@@ -215,12 +219,14 @@ namespace CapaNegocio
                     //Si la peticion se realizo de manera correcta obtemos un "OK" (200)
                     if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine(response.StatusCode);
                         //Regresamos el valor de accion a 0
                         await DesincronizarDatos(listaPrecios);
+                        Console.WriteLine(response.StatusCode);
+                        return response.StatusCode + " -> " + "La peticion se realizo correctamente";
                     }
                     else
                     {
+                        return "WARNING: " + response.StatusCode + " -> " + "No fue posible realizar la peticion";
                         Console.WriteLine(response.StatusCode);
                         Console.WriteLine("No fue posible realizar la peticion");
                     }
@@ -229,6 +235,7 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                return "ERROR: " + ex.Message + " -> " + ex.InnerException.Message;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException.Message);
             }
