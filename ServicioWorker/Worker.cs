@@ -88,9 +88,6 @@ namespace ServicioWorker
             string usuario = hash.Descifrar(ConfigurationManager.AppSettings["UsuarioAPI"].ToString());
             string password = hash.Descifrar(ConfigurationManager.AppSettings["PasswordAPI"].ToString());
 
-            //Inciamos sesion en la API y obtenemos el token
-            string token = await Helper.IniciarSesion(usuario, password);
-
             string mensaje = "";
 
             _logger.LogInformation("Servicio corriendo a las: {time}", DateTimeOffset.Now);
@@ -102,380 +99,392 @@ namespace ServicioWorker
 
                 if (conexionInternet.HayConexionAInternet())
                 {
-                    Console.WriteLine("\nIniciando la Carga de Datos a la API...\n");
-                    _logger.LogInformation("Iniciando la Carga de Datos a la API - {time}", DateTimeOffset.Now);
 
-                    //Obtenemos los datos de la bd de omnivent
-
-                    ventas = await venta.ObtenerVentas();
-
-                    productosInsertar = await producto.ObtenerProductosAInsertar();
-                    productosActualizar = await producto.ObtenerProductosAActualizar();
-                    productosEliminar = await producto.ObtenerProductosAEliminar();
-
-                    listaPreciosInsertar = await listaPrecio.ObtenerListaPrecioAInsertar();
-                    listaPreciosActualizar = await listaPrecio.ObtenerListaPrecioAActualizar();
-                    listaPreciosEliminar = await listaPrecio.ObtenerListaPrecioAEliminar();
-
-                    listaPrecioDetallesInsertar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAInsertar();
-                    listaPrecioDetallesActualizar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAActualizar();
-                    listaPrecioDetallesEliminar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAEliminar();
-
-                    ventasDetalleInsertar = await ventaDetalle.ObtenerVentasDetalleAInsertar();
-                    ventasDetalleActualizar = await ventaDetalle.ObtenerVentasDetalleAActualizar();
-                    ventasDetalleEliminar = await ventaDetalle.ObtenerVentasDetalleAEliminar();
-
-                    formasPagoInsertar = await formaPago.ObtenerFormasPagoAInsertar();
-                    formasPagoActualizar = await formaPago.ObtenerFormasPagoAActualizar();
-                    formasPagoEliminar = await formaPago.ObtenerFormasPagoAEliminar();
-
-                    flujosEfectivoInsertar = await flujoEfectivo.ObtenerFlujosEfectivoAInsertar();
-                    flujosEfectivoActualizar = await flujoEfectivo.ObtenerFlujosEfectivoAActualizar();
-                    flujosEfectivoEliminar = await flujoEfectivo.ObtenerFlujosEfectivoAEliminar();
-
-                    sucursalesInsertar = await sucursal.ObtenerSucursalesAInsertar();
-                    sucursalesActualizar = await sucursal.ObtenerSucursalesAActualizar();
-                    sucursalesEliminar = await sucursal.ObtenerSucursalesAEliminar();
-
-                    almacenesInsertar = await almacen.ObtenerAlmacenesAInsertar();
-                    almacenesActualizar = await almacen.ObtenerAlmacenesAActualizar();
-                    almacenesEliminar = await almacen.ObtenerAlmacenesAEliminar();
-
-                    almacenProductosInsertar = await almacenProducto.ObtenerAlmacenProductosAInsertar();
-                    almacenProductosActualizar = await almacenProducto.ObtenerAlmacenProductosAActualizar();
-                    almacenProductosEliminar = await almacenProducto.ObtenerAlmacenProductosAEliminar();
-
-
-                    //Llamamos la API e Isertamos las ventas en la BD de la api
-
-
-                    //VENTAS
-
-                    if (ventas != null && ventas.Count > 0)
+                    //Inciamos sesion en la API y obtenemos el token
+                    string token = await Helper.IniciarSesion(usuario, password);
+                    if (token == null || token.Equals(""))
                     {
-                        mensaje = await venta.InsertarVentasAPI(ventas, token);
-                        _logger.LogInformation("VENTAS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        Console.WriteLine("No se pudo Iniciar Sesión");
+                        _logger.LogError("ERROR - Inicio de Sesion - No se pudo iniciar sesion - {time}", DateTimeOffset.Now);
+
                     }
                     else
                     {
-                        Console.WriteLine("No hay ventas nuevas, No es necesario realizar la peticion");
-                        _logger.LogInformation("VENTAS - " + "No hay ventas nuevas, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        Console.WriteLine("\nIniciando la Carga de Datos a la API...\n");
+                        _logger.LogInformation("Iniciando la Carga de Datos a la API - {time}", DateTimeOffset.Now);
 
-                    //PRODUCTOS
+                        //Obtenemos los datos de la bd de omnivent
 
-                    if (productosInsertar != null && productosInsertar.Count > 0)
-                    {
-                        mensaje = await producto.InsertarProductosAPI(productosInsertar, token);
-                        _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay productos nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS - " + "No hay productos nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        ventas = await venta.ObtenerVentas();
 
-                    if (productosActualizar != null && productosActualizar.Count > 0)
-                    {
-                        mensaje = await producto.ActualizarProductosAPI(productosActualizar, token);
-                        _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay productos para actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS - " + "No hay productos para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        productosInsertar = await producto.ObtenerProductosAInsertar();
+                        productosActualizar = await producto.ObtenerProductosAActualizar();
+                        productosEliminar = await producto.ObtenerProductosAEliminar();
 
-                    if (productosEliminar != null && productosEliminar.Count > 0)
-                    {
-                        mensaje = await producto.EliminarProductosAPI(productosEliminar, token);
-                        _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay productos para Eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS - " + "No hay productos para Eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        listaPreciosInsertar = await listaPrecio.ObtenerListaPrecioAInsertar();
+                        listaPreciosActualizar = await listaPrecio.ObtenerListaPrecioAActualizar();
+                        listaPreciosEliminar = await listaPrecio.ObtenerListaPrecioAEliminar();
 
-                    //LISTA PRECIOS
+                        listaPrecioDetallesInsertar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAInsertar();
+                        listaPrecioDetallesActualizar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAActualizar();
+                        listaPrecioDetallesEliminar = await listaPrecioDetalles.ObtenerListaPrecioDetalleAEliminar();
 
-                    if (listaPreciosInsertar != null && listaPreciosInsertar.Count > 0)
-                    {
-                        mensaje = await listaPrecio.InsertarListaPreciosAPI(listaPreciosInsertar, token);
-                        _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        ventasDetalleInsertar = await ventaDetalle.ObtenerVentasDetalleAInsertar();
+                        ventasDetalleActualizar = await ventaDetalle.ObtenerVentasDetalleAActualizar();
+                        ventasDetalleEliminar = await ventaDetalle.ObtenerVentasDetalleAEliminar();
 
-                    if (listaPreciosActualizar != null && listaPreciosActualizar.Count > 0)
-                    {
-                        mensaje = await listaPrecio.ActualizarListaPreciosAPI(listaPreciosActualizar, token);
-                        _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios a actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios a actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        formasPagoInsertar = await formaPago.ObtenerFormasPagoAInsertar();
+                        formasPagoActualizar = await formaPago.ObtenerFormasPagoAActualizar();
+                        formasPagoEliminar = await formaPago.ObtenerFormasPagoAEliminar();
 
-                    if (listaPreciosEliminar != null && listaPreciosEliminar.Count > 0)
-                    {
-                        mensaje = await listaPrecio.EliminarListaPreciosAPI(listaPreciosEliminar, token);
-                        _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios a eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios a eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        flujosEfectivoInsertar = await flujoEfectivo.ObtenerFlujosEfectivoAInsertar();
+                        flujosEfectivoActualizar = await flujoEfectivo.ObtenerFlujosEfectivoAActualizar();
+                        flujosEfectivoEliminar = await flujoEfectivo.ObtenerFlujosEfectivoAEliminar();
 
-                    //lISTA PRECIOS DETALLE
+                        sucursalesInsertar = await sucursal.ObtenerSucursalesAInsertar();
+                        sucursalesActualizar = await sucursal.ObtenerSucursalesAActualizar();
+                        sucursalesEliminar = await sucursal.ObtenerSucursalesAEliminar();
 
-                    if (listaPrecioDetallesInsertar != null && listaPrecioDetallesInsertar.Count > 0)
-                    {
-                        mensaje = await listaPrecioDetalles.InsertarListaPreciosDetalleAPI(listaPrecioDetallesInsertar, token);
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios detalle nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
-                    if (listaPrecioDetallesActualizar != null && listaPrecioDetallesActualizar.Count > 0)
-                    {
-                        mensaje = await listaPrecioDetalles.ActualizarListaPreciosDetalleAPI(listaPrecioDetallesActualizar, token);
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios detalle para actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
-                    if (listaPrecioDetallesEliminar != null && listaPrecioDetallesEliminar.Count > 0)
-                    {
-                        mensaje = await listaPrecioDetalles.EliminarListaPreciosDetalleAPI(listaPrecioDetallesEliminar, token);
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay lista de precios detalle para eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle para eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        almacenesInsertar = await almacen.ObtenerAlmacenesAInsertar();
+                        almacenesActualizar = await almacen.ObtenerAlmacenesAActualizar();
+                        almacenesEliminar = await almacen.ObtenerAlmacenesAEliminar();
 
-                    //Ventas Detalle
+                        almacenProductosInsertar = await almacenProducto.ObtenerAlmacenProductosAInsertar();
+                        almacenProductosActualizar = await almacenProducto.ObtenerAlmacenProductosAActualizar();
+                        almacenProductosEliminar = await almacenProducto.ObtenerAlmacenProductosAEliminar();
 
-                    if (ventasDetalleInsertar != null && ventasDetalleInsertar.Count > 0)
-                    {
-                        mensaje = await ventaDetalle.InsertarVentasDetalleAPI(ventasDetalleInsertar, token);
-                        _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay ventas detalle nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
 
-                    if (ventasDetalleActualizar != null && ventasDetalleActualizar.Count > 0)
-                    {
-                        mensaje = await ventaDetalle.ActualizarVentasDetalleAPI(ventasDetalleActualizar, token);
-                        _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay ventas detalle por actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        //Llamamos la API e Isertamos las ventas en la BD de la api
 
-                    if (ventasDetalleEliminar != null && ventasDetalleEliminar.Count > 0)
-                    {
-                        mensaje = await ventaDetalle.EliminarVentasDetalleAPI(ventasDetalleEliminar, token);
-                        _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay ventas detalle por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
 
-                    //Formas Pago
+                        //VENTAS
 
-                    if (formasPagoInsertar != null && formasPagoInsertar.Count > 0)
-                    {
-                        mensaje = await formaPago.InsertarFormasPagoAPI(formasPagoInsertar, token);
-                        _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay formas de pago nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (ventas != null && ventas.Count > 0)
+                        {
+                            mensaje = await venta.InsertarVentasAPI(ventas, token);
+                            _logger.LogInformation("VENTAS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay ventas nuevas, No es necesario realizar la peticion");
+                            _logger.LogInformation("VENTAS - " + "No hay ventas nuevas, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (formasPagoActualizar != null && formasPagoActualizar.Count > 0)
-                    {
-                        mensaje = await formaPago.ActualizarFormasPagoAPI(formasPagoActualizar, token);
-                        _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay formas de pago por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        //PRODUCTOS
 
-                    if (formasPagoEliminar != null && formasPagoEliminar.Count > 0)
-                    {
-                        mensaje = await formaPago.EliminarFormasPagoAPI(formasPagoEliminar, token);
-                        _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay formas de pago por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (productosInsertar != null && productosInsertar.Count > 0)
+                        {
+                            mensaje = await producto.InsertarProductosAPI(productosInsertar, token);
+                            _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay productos nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS - " + "No hay productos nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    //FLUJOS DE EFECTIVO
+                        if (productosActualizar != null && productosActualizar.Count > 0)
+                        {
+                            mensaje = await producto.ActualizarProductosAPI(productosActualizar, token);
+                            _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay productos para actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS - " + "No hay productos para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (flujosEfectivoInsertar != null && flujosEfectivoInsertar.Count > 0)
-                    {
-                        mensaje = await flujoEfectivo.InsertarFlujosEfectivoAPI(flujosEfectivoInsertar, token);
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay flujos de efectivo nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (productosEliminar != null && productosEliminar.Count > 0)
+                        {
+                            mensaje = await producto.EliminarProductosAPI(productosEliminar, token);
+                            _logger.LogInformation("PRODUCTOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay productos para Eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS - " + "No hay productos para Eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (flujosEfectivoActualizar != null && flujosEfectivoActualizar.Count > 0)
-                    {
-                        mensaje = await flujoEfectivo.ActualizarFlujosEfectivoAPI(flujosEfectivoActualizar, token);
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay flujos de efectivo para actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        //LISTA PRECIOS
 
-                    if (flujosEfectivoEliminar != null && flujosEfectivoEliminar.Count > 0)
-                    {
-                        mensaje = await flujoEfectivo.EliminarFlujosEfectivoAPI(flujosEfectivoEliminar, token);
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay flujos de efectivo por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (listaPreciosInsertar != null && listaPreciosInsertar.Count > 0)
+                        {
+                            mensaje = await listaPrecio.InsertarListaPreciosAPI(listaPreciosInsertar, token);
+                            _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    //SUCURSALES
+                        if (listaPreciosActualizar != null && listaPreciosActualizar.Count > 0)
+                        {
+                            mensaje = await listaPrecio.ActualizarListaPreciosAPI(listaPreciosActualizar, token);
+                            _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios a actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios a actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (sucursalesInsertar != null && sucursalesInsertar.Count > 0)
-                    {
-                        mensaje = await sucursal.InsertarSucursalesAPI(sucursalesInsertar, token);
-                        _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay sucursales nuevas, No es necesario realizar la peticion");
-                        _logger.LogInformation("SUCURSALES - " + "No hay sucursales nuevas, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (listaPreciosEliminar != null && listaPreciosEliminar.Count > 0)
+                        {
+                            mensaje = await listaPrecio.EliminarListaPreciosAPI(listaPreciosEliminar, token);
+                            _logger.LogInformation("LISTA_PRECIOS - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios a eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS - " + "No hay lista de precios a eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (sucursalesActualizar != null && sucursalesActualizar.Count > 0)
-                    {
-                        mensaje = await sucursal.ActualizarSucursalesAPI(sucursalesActualizar, token);
-                        _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay sucursales por actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("SUCURSALES - " + "No hay sucursales por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        //lISTA PRECIOS DETALLE
 
-                    if (sucursalesEliminar != null && sucursalesEliminar.Count > 0)
-                    {
-                        mensaje = await sucursal.EliminarSucursalesAPI(sucursalesEliminar, token);
-                        _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay sucursales por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("SUCURSALES - " + "No hay sucursales por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (listaPrecioDetallesInsertar != null && listaPrecioDetallesInsertar.Count > 0)
+                        {
+                            mensaje = await listaPrecioDetalles.InsertarListaPreciosDetalleAPI(listaPrecioDetallesInsertar, token);
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios detalle nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+                        if (listaPrecioDetallesActualizar != null && listaPrecioDetallesActualizar.Count > 0)
+                        {
+                            mensaje = await listaPrecioDetalles.ActualizarListaPreciosDetalleAPI(listaPrecioDetallesActualizar, token);
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios detalle para actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+                        if (listaPrecioDetallesEliminar != null && listaPrecioDetallesEliminar.Count > 0)
+                        {
+                            mensaje = await listaPrecioDetalles.EliminarListaPreciosDetalleAPI(listaPrecioDetallesEliminar, token);
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay lista de precios detalle para eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("LISTA_PRECIOS_DETALLE - " + "No hay lista de precios detalle para eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    //ALMACENES 
+                        //Ventas Detalle
 
-                    if (almacenesInsertar != null && almacenesInsertar.Count > 0)
-                    {
-                        mensaje = await almacen.InsertarAlmacenesAPI(almacenesInsertar, token);
-                        _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("ALMACENES - " + "No hay almacenes nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (ventasDetalleInsertar != null && ventasDetalleInsertar.Count > 0)
+                        {
+                            mensaje = await ventaDetalle.InsertarVentasDetalleAPI(ventasDetalleInsertar, token);
+                            _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay ventas detalle nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (almacenesActualizar != null && almacenesActualizar.Count > 0)
-                    {
-                        mensaje = await almacen.ActualizarAlmacenesAPI(almacenesActualizar, token);
-                        _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacenes por actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("ALMACENES - " + "No hay almacenes por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (ventasDetalleActualizar != null && ventasDetalleActualizar.Count > 0)
+                        {
+                            mensaje = await ventaDetalle.ActualizarVentasDetalleAPI(ventasDetalleActualizar, token);
+                            _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay ventas detalle por actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (almacenesEliminar != null && almacenesEliminar.Count > 0)
-                    {
-                        mensaje = await almacen.EliminarAlmacenesAPI(almacenesEliminar, token);
-                        _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("ALMACENES - " + "No hay almacenes nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (ventasDetalleEliminar != null && ventasDetalleEliminar.Count > 0)
+                        {
+                            mensaje = await ventaDetalle.EliminarVentasDetalleAPI(ventasDetalleEliminar, token);
+                            _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay ventas detalle por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("VENTAS_DETALLE - " + "No hay ventas detalle por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    //PRODUCTOS ALMACEN
-                    if (almacenProductosInsertar != null && almacenProductosInsertar.Count > 0)
-                    {
-                        mensaje = await almacenProducto.InsertarAlmacenProductosAPI(almacenProductosInsertar, token);
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacen producto nuevos, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        //Formas Pago
 
-                    if (almacenProductosActualizar != null && almacenProductosActualizar.Count > 0)
-                    {
-                        mensaje = await almacenProducto.ActualizarAlmacenProductosAPI(almacenProductosActualizar, token);
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacen producto por actualizar, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (formasPagoInsertar != null && formasPagoInsertar.Count > 0)
+                        {
+                            mensaje = await formaPago.InsertarFormasPagoAPI(formasPagoInsertar, token);
+                            _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay formas de pago nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    if (almacenProductosEliminar != null && almacenProductosEliminar.Count > 0)
-                    {
-                        mensaje = await almacenProducto.EliminarAlmacenProductosAPI(almacenProductosEliminar, token);
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No hay almacen producto por eliminar, No es necesario realizar la peticion");
-                        _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
-                    }
+                        if (formasPagoActualizar != null && formasPagoActualizar.Count > 0)
+                        {
+                            mensaje = await formaPago.ActualizarFormasPagoAPI(formasPagoActualizar, token);
+                            _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay formas de pago por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
 
-                    //Realizamos una retraso n minutos, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
-                    await Task.Delay(tiempo * 60 * 1000, stoppingToken);
+                        if (formasPagoEliminar != null && formasPagoEliminar.Count > 0)
+                        {
+                            mensaje = await formaPago.EliminarFormasPagoAPI(formasPagoEliminar, token);
+                            _logger.LogInformation("FORMAS_PAGO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay formas de pago por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("FORMAS_PAGO - " + "No hay formas de pago por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        //FLUJOS DE EFECTIVO
+
+                        if (flujosEfectivoInsertar != null && flujosEfectivoInsertar.Count > 0)
+                        {
+                            mensaje = await flujoEfectivo.InsertarFlujosEfectivoAPI(flujosEfectivoInsertar, token);
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay flujos de efectivo nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (flujosEfectivoActualizar != null && flujosEfectivoActualizar.Count > 0)
+                        {
+                            mensaje = await flujoEfectivo.ActualizarFlujosEfectivoAPI(flujosEfectivoActualizar, token);
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay flujos de efectivo para actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo para actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (flujosEfectivoEliminar != null && flujosEfectivoEliminar.Count > 0)
+                        {
+                            mensaje = await flujoEfectivo.EliminarFlujosEfectivoAPI(flujosEfectivoEliminar, token);
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay flujos de efectivo por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("FLUJOS_EFECTIVO - " + "No hay flujos de efectivo por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        //SUCURSALES
+
+                        if (sucursalesInsertar != null && sucursalesInsertar.Count > 0)
+                        {
+                            mensaje = await sucursal.InsertarSucursalesAPI(sucursalesInsertar, token);
+                            _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay sucursales nuevas, No es necesario realizar la peticion");
+                            _logger.LogInformation("SUCURSALES - " + "No hay sucursales nuevas, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (sucursalesActualizar != null && sucursalesActualizar.Count > 0)
+                        {
+                            mensaje = await sucursal.ActualizarSucursalesAPI(sucursalesActualizar, token);
+                            _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay sucursales por actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("SUCURSALES - " + "No hay sucursales por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (sucursalesEliminar != null && sucursalesEliminar.Count > 0)
+                        {
+                            mensaje = await sucursal.EliminarSucursalesAPI(sucursalesEliminar, token);
+                            _logger.LogInformation("SUCURSALES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay sucursales por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("SUCURSALES - " + "No hay sucursales por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        //ALMACENES 
+
+                        if (almacenesInsertar != null && almacenesInsertar.Count > 0)
+                        {
+                            mensaje = await almacen.InsertarAlmacenesAPI(almacenesInsertar, token);
+                            _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("ALMACENES - " + "No hay almacenes nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (almacenesActualizar != null && almacenesActualizar.Count > 0)
+                        {
+                            mensaje = await almacen.ActualizarAlmacenesAPI(almacenesActualizar, token);
+                            _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacenes por actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("ALMACENES - " + "No hay almacenes por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (almacenesEliminar != null && almacenesEliminar.Count > 0)
+                        {
+                            mensaje = await almacen.EliminarAlmacenesAPI(almacenesEliminar, token);
+                            _logger.LogInformation("ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacenes nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("ALMACENES - " + "No hay almacenes nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        //PRODUCTOS ALMACEN
+                        if (almacenProductosInsertar != null && almacenProductosInsertar.Count > 0)
+                        {
+                            mensaje = await almacenProducto.InsertarAlmacenProductosAPI(almacenProductosInsertar, token);
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacen producto nuevos, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto nuevos, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (almacenProductosActualizar != null && almacenProductosActualizar.Count > 0)
+                        {
+                            mensaje = await almacenProducto.ActualizarAlmacenProductosAPI(almacenProductosActualizar, token);
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacen producto por actualizar, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto por actualizar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        if (almacenProductosEliminar != null && almacenProductosEliminar.Count > 0)
+                        {
+                            mensaje = await almacenProducto.EliminarAlmacenProductosAPI(almacenProductosEliminar, token);
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + mensaje + " - {time}", DateTimeOffset.Now);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay almacen producto por eliminar, No es necesario realizar la peticion");
+                            _logger.LogInformation("PRODUCTOS_ALMACENES - " + "No hay almacen producto por eliminar, No es necesario realizar la peticion - {time}", DateTimeOffset.Now);
+                        }
+
+                        //Realizamos una retraso n minutos, y comienza de nuevo el ciclo, es decir, realiza una peticion cada minuto
+                        await Task.Delay(tiempo * 60 * 1000, stoppingToken);
+                    }
                 }
                 else
                 {
