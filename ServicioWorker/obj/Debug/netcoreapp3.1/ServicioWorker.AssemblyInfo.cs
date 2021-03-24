@@ -12,12 +12,16 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("dotnet-ServicioWorker-902C8447-8012-406B-84E3-F691882A5F20")]
-[assembly: System.Reflection.AssemblyCompanyAttribute("ServicioWorker")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Servicio de Omnivent Web Movil")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright 2020")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Este es un producto perteneciente a Omnisoft Technologies S. de R. L. encargado d" +
+    "e sincronizar la informacion de la base de datos de Omnivent con la API de Omniv" +
+    "ent")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("ServicioWorker")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ServicioWorker")]
+[assembly: System.Reflection.AssemblyProductAttribute("Servicio de Omnivent Web Movil")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Servicio de Omnivent Web Movil")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

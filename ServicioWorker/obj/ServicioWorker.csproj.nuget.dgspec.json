@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\ServicioWorker\\ServicioWorker.csproj": {}
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\ServicioWorker\\ServicioWorker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj",
-        "packagesPath": "C:\\Users\\erikg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\obj\\",
+        "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\alex_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\erikg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alex_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +29,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +41,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -72,21 +77,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj": {
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj",
+        "projectUniqueName": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj",
         "projectName": "CapaNegocio",
-        "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj",
-        "packagesPath": "C:\\Users\\erikg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\obj\\",
+        "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj",
+        "packagesPath": "C:\\Users\\alex_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\erikg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alex_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -98,9 +106,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj": {
-                "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj"
+              "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj"
               }
             }
           }
@@ -113,6 +122,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
@@ -138,21 +148,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\ServicioWorker\\ServicioWorker.csproj": {
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\ServicioWorker\\ServicioWorker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\ServicioWorker\\ServicioWorker.csproj",
-        "projectName": "ServicioWorker",
-        "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\ServicioWorker\\ServicioWorker.csproj",
-        "packagesPath": "C:\\Users\\erikg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\ServicioWorker\\obj\\",
+        "projectUniqueName": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\ServicioWorker\\ServicioWorker.csproj",
+        "projectName": "Servicio de Omnivent Web Movil",
+        "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\ServicioWorker\\ServicioWorker.csproj",
+        "packagesPath": "C:\\Users\\alex_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\ServicioWorker\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\erikg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alex_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -164,9 +177,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj": {
-                "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaNegocio\\CapaNegocio.csproj"
+              "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj": {
+                "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaNegocio\\CapaNegocio.csproj"
               }
             }
           }
@@ -179,6 +193,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
@@ -187,6 +202,14 @@
             "Microsoft.Extensions.Hosting.WindowsServices": {
               "target": "Package",
               "version": "[5.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             },
             "System.Configuration.ConfigurationManager": {
               "target": "Package",
@@ -204,11 +227,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

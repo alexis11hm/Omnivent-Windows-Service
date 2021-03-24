@@ -27,3 +27,76 @@ ALTER TABLE PDV_ALMACEN ADD alm_accion smallint default(0);
 
 ALTER TABLE PDV_ALMACEN_PRODUCTO ADD alp_control bit default(1);
 ALTER TABLE PDV_ALMACEN_PRODUCTO ADD alp_accion smallint default(0);
+
+UPDATE [dbo].PDV_VENTA 
+   SET
+      [vta_control] = 1
+      ,[vta_accion] = 1
+GO
+
+UPDATE [dbo].GLB_PRODUCTO
+   SET
+      [pro_control] = 1
+      ,[pro_accion] = 1
+GO
+
+UPDATE [dbo].PDV_LISTA_PRECIO 
+   SET
+      [lip_control] = 1
+      ,[lip_accion] = 1
+GO
+
+UPDATE [dbo].PDV_LISTAP_DETALLE 
+   SET
+      [lpd_control] = 1
+      ,[lpd_accion] = 1
+GO
+
+UPDATE [dbo].GLB_SUCURSAL
+   SET
+      [suc_control] = 1
+      ,[suc_accion] = 1
+GO
+
+UPDATE [dbo].PDV_ALMACEN
+   SET
+      [alm_control] = 1
+      ,[alm_accion] = 1
+GO
+
+UPDATE [dbo].PDV_ALMACEN_PRODUCTO
+   SET
+      [alp_control] = 1
+      ,[alp_accion] = 1
+GO
+
+
+UPDATE [dbo].PDV_FORMA_PAGO
+   SET
+      [fop_control] = 1
+      ,[fop_accion] = 1
+GO
+
+
+UPDATE [dbo].PDV_FLUJO_EFECTIVO 
+   SET
+      [fle_control] = 1
+      ,[fle_accion] = 1
+GO
+
+UPDATE [dbo].PDV_VENTA_DETALLE 
+   SET
+      [ved_control] = 1
+      ,[ved_accion] = 1
+GO
+
+delete from PDV_VENTA;
+delete from GLB_PRODUCTO;
+delete from PDV_LISTA_PRECIO;
+delete from PDV_LISTAP_DETALLE;
+delete from PDV_VENTA_DETALLE;
+delete from PDV_FORMA_PAGO;
+delete from PDV_FLUJO_EFECTIVO;
+delete from GLB_SUCURSAL;
+delete from PDV_ALMACEN;
+delete from PDV_ALMACEN_PRODUCTO;

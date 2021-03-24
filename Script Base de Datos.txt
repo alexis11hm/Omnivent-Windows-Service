@@ -1,2 +1,0 @@
-ALTER TABLE PDV_VENTA ADD vta_control bit default(1);
-ALTER TABLE PDV_VENTA ADD vta_accion smallint default(0);

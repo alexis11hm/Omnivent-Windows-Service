@@ -278,6 +278,7 @@ namespace ServicioWorker
                         if (ventasDetalleInsertar != null && ventasDetalleInsertar.Count > 0)
                         {
                             mensaje = await ventaDetalle.InsertarVentasDetalleAPI(ventasDetalleInsertar, token);
+                            Console.WriteLine(mensaje);
                             _logger.LogInformation("VENTAS_DETALLE - " + mensaje + " - {time}", DateTimeOffset.Now);
                         }
                         else

@@ -21,7 +21,6 @@ namespace ServicioWorker
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
                 .Enrich.FromLogContext()
-                
                 .WriteTo.File(ruta+"\\OmniventWindowsService\\ServicioWorker\\Logs\\LogFile_" + DateTimeOffset.Now.ToString("yyyy-M-d") + ".txt")
                 .CreateLogger();
 

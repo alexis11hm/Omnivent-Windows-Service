@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj": {}
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\CapaDatos.csproj",
-        "packagesPath": "C:\\Users\\erikg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erikg\\Desktop\\OmniSoft\\Omnivent-Windows-Service\\CapaDatos\\obj\\",
+        "projectPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\CapaDatos.csproj",
+        "packagesPath": "C:\\Users\\alex_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alex_\\OneDrive\\Escritorio\\Omnivent Flutter Apps\\OmniventWindowsService\\CapaDatos\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\erikg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\alex_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +29,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +41,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -72,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

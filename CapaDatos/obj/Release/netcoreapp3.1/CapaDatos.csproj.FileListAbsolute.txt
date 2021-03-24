@@ -10,3 +10,15 @@ C:\Users\alex_\source\repos\OmniventWindowsService\CapaDatos\obj\Release\netcore
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.dll
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.pdb
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.genruntimeconfig.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\bin\Release\netcoreapp3.1\CapaDatos.deps.json
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\bin\Release\netcoreapp3.1\CapaDatos.runtimeconfig.json
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\bin\Release\netcoreapp3.1\CapaDatos.runtimeconfig.dev.json
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\bin\Release\netcoreapp3.1\CapaDatos.dll
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\bin\Release\netcoreapp3.1\CapaDatos.pdb
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.AssemblyInfoInputs.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.AssemblyInfo.cs
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.dll
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.pdb
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.genruntimeconfig.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaDatos\obj\Release\netcoreapp3.1\CapaDatos.csprojAssemblyReference.cache

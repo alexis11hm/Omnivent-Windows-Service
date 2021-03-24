@@ -10,3 +10,15 @@ C:\Users\alex_\source\repos\OmniventWindowsService\CapaNegocio\obj\Release\netco
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.csproj.CopyComplete
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.dll
 C:\Users\alex_\source\repos\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.pdb
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\bin\Release\netcoreapp3.1\CapaNegocio.deps.json
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\bin\Release\netcoreapp3.1\CapaNegocio.dll
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\bin\Release\netcoreapp3.1\CapaNegocio.pdb
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\bin\Release\netcoreapp3.1\CapaDatos.dll
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\bin\Release\netcoreapp3.1\CapaDatos.pdb
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.csprojAssemblyReference.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.AssemblyInfoInputs.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.AssemblyInfo.cs
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.csproj.CopyComplete
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.dll
+C:\Users\alex_\OneDrive\Escritorio\Omnivent Flutter Apps\OmniventWindowsService\CapaNegocio\obj\Release\netcoreapp3.1\CapaNegocio.pdb

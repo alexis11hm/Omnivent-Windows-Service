@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>dotnet-ServicioWorker-902C8447-8012-406B-84E3-F691882A5F20</UserSecretsId>
+    <AssemblyName>Servicio de Omnivent Web Movil</AssemblyName>
+    <RootNamespace>Servicio de Omnivent Web Movil</RootNamespace>
+    <ApplicationIcon>servicioDeWindows.ico</ApplicationIcon>
+    <Description>Este es un producto perteneciente a Omnisoft Technologies S. de R. L. encargado de sincronizar la informacion de la base de datos de Omnivent con la API de Omnivent</Description>
+    <Copyright>Copyright 2020</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

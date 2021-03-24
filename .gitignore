@@ -15,10 +15,15 @@ yarn-error.log*
 .idea
 .vscode
 *.suo
+*.suo*
 *.ntvs*
 *.njsproj
+*.njsproj*
 *.sw*
 *.dll
+*.dll*
 *.csproj*
 *.cache
+*.cache*
 *.pdb
+*.pdb*
