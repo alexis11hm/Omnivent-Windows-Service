@@ -14,7 +14,7 @@ _Tools used to develop this app:_
 
 ### Running Locally
 
-Open the app using [Visual Studio](https://visualstudio.microsoft.com/es/) and execute the OmniventWindowsService.sln
+Open the app using [Visual Studio](https://visualstudio.microsoft.com/es/) and execute the OmniventWindowsService.sln.
 
 ## Versioned
 
